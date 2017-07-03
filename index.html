@@ -4,14 +4,97 @@
 <head>
   <meta charset="UTF-8">
   <title>Homework 7</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="JS-CSS-Images/style.css">
   <link rel="stylesheet" type="text/css" href="JS-CSS-Images/reset.css">
 </head>
 
 <body>
-</body>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10 jumbotron">
+      <h1>Train Scheduler</h1>
+      <p>When's your train arriving?</p>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
 
-<script src "https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div id="trainSchedule" class="col-lg-10">
+      <div class="panel panel-success">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Current Train Schedule</div>
+        <div class="panel-body">
+        </div>
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <td>Train Name</td>
+            <td>Destination</td>
+            <td>Frequency (min)</td>
+            <td>Next Arrival</td>
+            <td>Minutes Away</td>
+          </thead>
+          <tbody>
+            <tr>
+              <div id="userTrain">
+                <td id="trainName">
+                  Train Mane
+                </td>
+                <td id="destination">
+                  Trainville
+                </td>
+                <td id="frequency">
+                  5 minutes
+                </td>
+                <td id="nextArrival">
+                  10 minutes
+                </td>
+                <td id="minutesAway">
+                  10mins
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div id="addTrain" class="col-lg-10">
+      <div class="panel panel-success">
+        <div class="panel-heading">Add a train</div>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Train Name</span>
+          <input type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Destination</span>
+          <input type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">First Train Time hh:MM - military time</span>
+          <input type="text" class="form-control">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Frequency (min)</span>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+
+</body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></script>
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
