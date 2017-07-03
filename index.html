@@ -36,22 +36,22 @@
             <td>Next Arrival</td>
             <td>Minutes Away</td>
           </thead>
-          <tbody>
+          <tbody id="tbody">
             <tr>
               <div id="userTrain">
-                <td id="trainName">
+                <td id="trainNameData">
                   Train Mane
                 </td>
-                <td id="destination">
+                <td id="destinationData">
                   Trainville
                 </td>
-                <td id="frequency">
+                <td id="frequencyData">
                   5 minutes
                 </td>
-                <td id="nextArrival">
+                <td id="nextArrivalData">
                   10 minutes
                 </td>
-                <td id="minutesAway">
+                <td id="minutesAwayData">
                   10mins
                 </td>
               </div>
@@ -68,25 +68,28 @@
     <div id="addTrain" class="col-lg-10">
       <div class="panel panel-success">
         <div class="panel-heading">Add a train</div>
+        <br>
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Train Name</span>
-          <input type="text" class="form-control">
+          <input id="inputName" type="text" class="form-control">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Destination</span>
-          <input type="text" class="form-control">
+          <input id="inputDestination" type="text" class="form-control">
         </div>
         <br>
         <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">First Train Time hh:MM - military time</span>
-          <input type="text" class="form-control">
+          <span class="input-group-addon" id="basic-addon1">First Train Time HH:mm - military time</span>
+          <input id="inputTime" type="text" class="form-control">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Frequency (min)</span>
-          <input type="text" class="form-control">
+          <input id="inputFrequency" type="text" class="form-control">
         </div>
+        <br>
+        <button type="button" class="btn btn-success">Submit</button>
       </div>
     </div>
     <div class="col-lg-1"></div>
