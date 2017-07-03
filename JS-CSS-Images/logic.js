@@ -11,32 +11,38 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 $('.btn').on('click', function(event) {
+
   event.preventDefault();
+
   var name = $('#inputName').val().trim();
   var destination = $('#inputDestination').val().trim();
   var firstTrainTime = $('#inputTime').val().trim();
   var frequency = $('#inputFrequency').val().trim();
-  console.log(name);
-  console.log(destination);
-  console.log(firstTrainTime);
-  console.log(frequency);
+
+  var currentInMinutes = moment().format("mm");
+  var minutesAway = frequency - (currentInMinutes % frequency);
+  var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm");
+
+  console.log(currentInMinutes);
+  // var nextTrainTime =
+
   var newTrain = {
     trainName: name,
     trainDestination: destination,
     arrivalTime: firstTrainTime,
+    nextInTime: nextTrainTime,
     trainFrequency: frequency,
-  }
+    nextInMinutes: minutesAway,
+  };
 
   database.ref().push(newTrain);
 
-  database.ref().on("child_added", function(childsnapshot) {
-    var newRow = $('<tr>');
-    var newData = $('<td>');
+})
+database.ref().on("child_added", function(childsnapshot) {
 
-    $('#trainNameData').append(childsnapshot.val().trainName + '<br>');
-    $('#destinationData').append(childsnapshot.val().trainDestination + '<br>');
-    $('#nextArrivalData').append(childsnapshot.val().arrivalTime + '<br>');
-    $('#frequencyData').append(childsnapshot.val().trainFrequency + '<br>');
-    // $('#tbody').append(newRow);
-  })
+  $('#trainNameData').prepend(childsnapshot.val().trainName + '<br>');
+  $('#destinationData').prepend(childsnapshot.val().trainDestination + '<br>');
+  $('#nextArrivalData').prepend(childsnapshot.val().nextInTime + '<br>');
+  $('#frequencyData').prepend(childsnapshot.val().trainFrequency + '<br>');
+  $('#minutesAwayData').prepend(childsnapshot.val().nextInMinutes + '<br>')
 });
