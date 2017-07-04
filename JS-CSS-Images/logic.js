@@ -38,13 +38,18 @@ $('.btn').on('click', function(event) {
   // push into firebase
   database.ref().push(newTrain);
 
+  $('#inputName').val("");
+  $('#inputDestination').val("");
+  $('#inputTime').val("");
+  $('#inputFrequency').val("");
+
 })
 
 // so I believe this retrieves all the data from the firebase, each time a child or object is added
 database.ref().on("child_added", function(childsnapshot) {
 
   // moment sucks, none of this stuff makes sense, I shouldn't have to convert an already converted time back into moment
-  var arrivalTime = moment(childsnapshot.val().arrivalTime, "HH:mm");
+  var arrivalTime = moment(childsnapshot.val().arrivalTime, "hh:mm A");
 
   // created this to calculate the difference of a future train, or one that has already arrived in the day
   var minuteDifference = moment(current).diff(moment(arrivalTime), "minutes");
@@ -58,12 +63,17 @@ database.ref().on("child_added", function(childsnapshot) {
   // calculate next train based off minutes away
   var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm A");
 
-  console.log(minutesAway);
+
+
 
   // stupid if then statement based off of future or past arrival train
   if (minuteDifference <= 0) {
+
     minutesAway = minuteDifference;
-    $('#nextArrivalData').prepend(arrivalTime._i + '<br>');
+    // hard coding the 24 hour input to 12 hour output onto table...
+    var militaryTo12 = moment().add(-1 * minutesAway + 1, 'minutes').format("hh:mm A");
+
+    $('#nextArrivalData').prepend(militaryTo12 + '<br>');
     $('#minutesAwayData').prepend((minuteDifference * -1) + '<br>');
   } else {
     $('#nextArrivalData').prepend(nextTrainTime + '<br>');
