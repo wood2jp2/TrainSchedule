@@ -38,6 +38,7 @@ $('.btn').on('click', function(event) {
   // push into firebase
   database.ref().push(newTrain);
 
+  // clear input after submission
   $('#inputName').val("");
   $('#inputDestination').val("");
   $('#inputTime').val("");
@@ -62,9 +63,6 @@ database.ref().on("child_added", function(childsnapshot) {
 
   // calculate next train based off minutes away
   var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm A");
-
-
-
 
   // stupid if then statement based off of future or past arrival train
   if (minuteDifference <= 0) {
