@@ -18,21 +18,13 @@ $('.btn').on('click', function(event) {
   var destination = $('#inputDestination').val().trim();
   var firstTrainTime = $('#inputTime').val().trim();
   var frequency = $('#inputFrequency').val().trim();
-
-  var currentInMinutes = moment().format("mm");
-  var minutesAway = frequency - (currentInMinutes % frequency);
-  var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm");
-
-  console.log(currentInMinutes);
   // var nextTrainTime =
 
   var newTrain = {
     trainName: name,
     trainDestination: destination,
     arrivalTime: firstTrainTime,
-    nextInTime: nextTrainTime,
     trainFrequency: frequency,
-    nextInMinutes: minutesAway,
   };
 
   database.ref().push(newTrain);
@@ -40,9 +32,15 @@ $('.btn').on('click', function(event) {
 })
 database.ref().on("child_added", function(childsnapshot) {
 
+  var currentInMinutes = moment().format("mm");
+  var minutesAway = childsnapshot.val().trainFrequency - (currentInMinutes % childsnapshot.val().trainFrequency);
+  var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm");
+
   $('#trainNameData').prepend(childsnapshot.val().trainName + '<br>');
   $('#destinationData').prepend(childsnapshot.val().trainDestination + '<br>');
-  $('#nextArrivalData').prepend(childsnapshot.val().nextInTime + '<br>');
+  // $('#nextArrivalData').prepend(childsnapshot.val().nextInTime + '<br>');
+  $('#nextArrivalData').prepend(nextTrainTime + '<br>');
   $('#frequencyData').prepend(childsnapshot.val().trainFrequency + '<br>');
-  $('#minutesAwayData').prepend(childsnapshot.val().nextInMinutes + '<br>')
+  // $('#minutesAwayData').prepend(childsnapshot.val().nextInMinutes + '<br>')
+  $('#minutesAwayData').prepend(minutesAway + '<br>')
 });
