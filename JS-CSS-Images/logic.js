@@ -7,7 +7,9 @@ var config = {
   storageBucket: "trainschedule-ba8d8.appspot.com",
   messagingSenderId: "990670730957"
 };
+
 firebase.initializeApp(config);
+
 var database = firebase.database();
 
 $('.btn').on('click', function(event) {
@@ -19,6 +21,7 @@ $('.btn').on('click', function(event) {
   var firstTrainTime = $('#inputTime').val().trim();
   var frequency = $('#inputFrequency').val().trim();
   // var nextTrainTime =
+  firstTrainTime = moment().format(firstTrainTime, "HH:mm");
 
   var newTrain = {
     trainName: name,
@@ -30,17 +33,36 @@ $('.btn').on('click', function(event) {
   database.ref().push(newTrain);
 
 })
+
 database.ref().on("child_added", function(childsnapshot) {
 
   var currentInMinutes = moment().format("mm");
+  var currentInHours = moment().format("HH");
+  var current = moment().format("HH:mm");
+
+  var arrivalTime = moment(childsnapshot.val().arrivalTime);
+  // var arrivalTimeInHours = moment().format(arrivalTime, "HH");
+
   var minutesAway = childsnapshot.val().trainFrequency - (currentInMinutes % childsnapshot.val().trainFrequency);
-  var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm");
+  var nextTrainTime = moment().add(minutesAway, 'minutes').format("hh:mm a");
+
+  console.log(moment(current, "HH:mm").diff(moment(arrivalTime, "HH:mm")));
 
   $('#trainNameData').prepend(childsnapshot.val().trainName + '<br>');
   $('#destinationData').prepend(childsnapshot.val().trainDestination + '<br>');
-  // $('#nextArrivalData').prepend(childsnapshot.val().nextInTime + '<br>');
   $('#nextArrivalData').prepend(nextTrainTime + '<br>');
   $('#frequencyData').prepend(childsnapshot.val().trainFrequency + '<br>');
-  // $('#minutesAwayData').prepend(childsnapshot.val().nextInMinutes + '<br>')
-  $('#minutesAwayData').prepend(minutesAway + '<br>')
+  $('#minutesAwayData').prepend(minutesAway + '<br>');
+
 });
+
+//
+// console.log(minutesAway);
+// console.log(currentInHours);
+// console.log(trainInHours);
+//
+// if (currentInHours > trainInHours) {
+//   $('#minutesAwayData').prepend(minutesAway + '<br>');
+// } else if (currentInHours < trainInHours) {
+//   $('#minutesAwayData').prepend(moment(arrivalTime).diff(moment(), "minutes") + '<br>');
+// }
