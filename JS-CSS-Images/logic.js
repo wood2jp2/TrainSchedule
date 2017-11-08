@@ -10,6 +10,7 @@ var config = {
 
 // more firebase stuffs
 firebase.initializeApp(config);
+
 var database = firebase.database();
 
 // submit button click function, of course

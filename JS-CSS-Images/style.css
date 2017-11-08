@@ -1,3 +1,9 @@
 .jumbotron {
   text-align: center;
+  background-image: url('train2.png');
+  color: white
+}
+
+body {
+  background-color: #febc92
 }

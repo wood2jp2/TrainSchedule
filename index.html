@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="60" />
-  <title>Homework 7</title>
+  <!-- <meta http-equiv="refresh" content="60" /> -->
+  <title>Train Schedule</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="JS-CSS-Images/style.css">
   <link rel="stylesheet" type="text/css" href="JS-CSS-Images/reset.css">
@@ -49,12 +49,16 @@
                 <td id="frequencyData">
 
                 </td>
-                <td id="nextArrivalData">
+                <div id="refreshDivOne">
+                  <td id="nextArrivalData">
 
-                </td>
-                <td id="minutesAwayData">
+                  </td>
+                </div>
+                <div id="refreshDivTwo">
+                  <td id="minutesAwayData">
 
-                </td>
+                  </td>
+                </div>
               </div>
             </tr>
           </tbody>
@@ -70,6 +74,13 @@
       <div class="panel panel-success">
         <div class="panel-heading">Add a train</div>
         <br>
+        <div class='instructions'>
+          <p>
+            Please enter in a label name for your train, where it's headed, the first train's arrival time in military format (i.e. if your
+            first train arrives at 3:15 PM, please enter 15:15), and lastly, the time in between trains. The scheduler should take care of the rest!
+          </p>
+        </div>
+        <br />
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Train Name</span>
           <input id="inputName" type="text" class="form-control">
@@ -81,7 +92,7 @@
         </div>
         <br>
         <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">First Train Time HH:mm - military time</span>
+          <span class="input-group-addon" id="basic-addon1">First Train Time HH:mm</span>
           <input id="inputTime" type="text" class="form-control">
         </div>
         <br>
